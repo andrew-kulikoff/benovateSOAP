@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Learning Java</title>
+    <h:outputStylesheet name="flagssprite_small.css"/>
+</h:head>
+<h:body style="background: #eee;"><h:form id="form">
+    <div style="padding: 20px; font-size: small;">
+        <p:layout id="layout" style="padding: 0px;">
+            <p:layoutUnit style="padding: 10px;"
+                          position="center"
+                          id="unit">
+                <p:panelGrid id="main" style="width: calc(100% - 10px); padding: 0px; border: none;">
+                    <p:row id="header" style="border: none;">
+                        <p:column style="padding: 0px; border: none;"
+                                  colspan="2">
+                            <p:outputLabel for="code"
+                                           value="Цифровой код валюты: "
+                                           style="width: 200px; padding: 0px; min-height: 25px;"/>
+                            <p:inputText id="code"
+                                         value="#{CurrencyConverter.code}"
+                                         maxlength="3"
+                                         style="width: calc(100% - 210px); padding: 0px;  min-height: 25px;"/>
+                        </p:column>
+                        <p:column style="padding: 0px; border: none;"
+                                  colspan="2">
+                            <p:outputLabel for="name"
+                                           value="Буквенный код валюты: "
+                                           style="width: 200px; padding: 0px;"/>
+                            <p:inputText id="name"
+                                         value="#{CurrencyConverter.name}"
+                                         maxlength="3"
+                                         style="width: calc(100% - 210px); min-height: 25px; padding: 0px;"/>
+                        </p:column>
+                        <p:column style="padding: 0px; border: none;"
+                                  colspan="2">
+                            <p:commandButton style="padding: 0px; width: 100%; font-weight: bold;"
+                                             id="filter"
+                                             value="Фильтровать"
+                                             ajax="true"
+                                             actionListener="#{CurrencyConverter.filter}"
+                                             update="table"/>
+                        </p:column>
+                    </p:row>
+                    <p:row id="center" style="border: none;">
+                        <p:column style="padding: 10px 0px 10px 0px; border: none;"
+                                  colspan="6">
+                            <p:dataTable id="table"
+                                         value="#{CurrencyConverter.data}"
+                                         var="table"
+                                         rows="20"
+                                         paginator="true"
+                                         paginatorPosition="bottom"
+                                         selectionMode="single"
+                                         ajax="true"
+                                         rowKey="#{table.country}"
+                                         selection="#{CurrencyConverter.selected}"
+                                         tableStyle="table-layout: auto; padding: 0px;">
+                                <p:ajax event="rowSelect"
+                                        listener="#{CurrencyConverter.select}"
+                                        update=":form:output" />
+                                <p:ajax event="rowUnselect"
+                                        listener="#{CurrencyConverter.unselect}"
+                                        update=":form:output" />
+                                <p:columnGroup type="header">
+                                    <p:row>
+                                        <p:column headerText="Список валют" colspan="5" width="100%"/>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column headerText="Флаг" />
+                                        <p:column headerText="Страна" />
+                                        <p:column headerText="Название валюты" />
+                                        <p:column headerText="Код валюты" />
+                                        <p:column headerText="ISO валюты" />
+                                    </p:row>
+                                </p:columnGroup>
+                                <p:column>
+                                    <p:graphicImage styleClass="flag #{table.flag}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{table.country}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{table.name}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{table.code}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{table.currency}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:column>
+                    </p:row>
+                    <p:row id="footer" style="border: none;">
+                        <p:column style="padding: 0px; border: none;"
+                                  colspan="3">
+                            <p:outputLabel for="input"
+                                           value="Сумма в долларах США: "
+                                           style="width: 200px; padding: 0px;"/>
+                            <p:inputText style="width: calc(100% - 210px); min-height: 25px; padding: 0px; margin: 0px 5px 0px 0px;"
+                                         id="input"
+                                         ajax="true"
+                                         value="#{CurrencyConverter.input}">
+                                <p:ajax event="valueChange"
+                                        listener="#{CurrencyConverter.convert}"
+                                        update=":form:output"/>
+                            </p:inputText>
+                        </p:column>
+                        <p:column style="padding: 0px; border: none;"
+                                  colspan="3">
+                            <p:outputLabel for="output"
+                                           value="Сумма в выбранной валюте: "
+                                           style="width: 200px; padding: 0px;"/>
+                            <p:inputText style="color: black; width: calc(100% - 215px); min-height: 25px; padding: 0px 0px 0px 10px; margin: 0px 0px 0px 5px;"
+                                         id="output"
+                                         disabled="true"
+                                         ajax="true"
+                                         value="#{CurrencyConverter.output}"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:layoutUnit>
+        </p:layout>
+    </div>
+</h:form></h:body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>benovate</groupId>
+        <artifactId>benovateSOAP</artifactId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>benovate</groupId>
+    <artifactId>ear</artifactId>
+    <version>1.0</version>
+    <packaging>ear</packaging>
+    <name>benovateSOAP</name>
+    <build>
+        <finalName>benovateSOAP</finalName>
+        <defaultGoal>package</defaultGoal>
+    </build>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+    </properties>
+    <description>Web Services module</description>
+    <developers>
+        <developer>
+            <id>kulikov</id>
+            <name>Andrey Kulikov</name>
+            <email>andrew.kulikoff@gmail.com</email>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>benovate</groupId>
+            <artifactId>ejb</artifactId>
+            <version>1.0</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>benovate</groupId>
+            <artifactId>web</artifactId>
+            <version>1.0</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+</project>
